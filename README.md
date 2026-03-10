@@ -192,7 +192,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- **Live App**: [Vercel Deployment](https://veloxdex.vercel.app)
+- **Live App**: [0xveloxdex.xyz](https://0xveloxdex.xyz)
 - **Contracts**: [BaseScan](https://basescan.org/address/0x47a76Cf3cE4ba9Ce8619e1b7aBa5d6817B5Ffc29)
 
 ---
