@@ -1,0 +1,44 @@
+{
+  "name": "veloxdex",
+  "version": "1.0.0",
+  "description": "Lightning fast DEX on Base - Ultra-low fee token swaps with modern UI",
+  "author": "Velox Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sigmabrogz/veloxdex.git"
+  },
+  "homepage": "https://github.com/Sigmabrogz/veloxdex#readme",
+  "bugs": {
+    "url": "https://github.com/Sigmabrogz/veloxdex/issues"
+  },
+  "keywords": [
+    "dex",
+    "defi",
+    "base",
+    "ethereum",
+    "uniswap",
+    "swap",
+    "liquidity",
+    "amm",
+    "blockchain",
+    "web3"
+  ],
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy-mainnet.js --network base",
+    "deploy:testnet": "hardhat run scripts/deploy.js --network baseSepolia",
+    "trade": "hardhat run scripts/trade.js --network base",
+    "trade:testnet": "hardhat run scripts/trade.js --network baseSepolia",
+    "frontend": "cd frontend && python3 -m http.server 8080"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.0",
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
