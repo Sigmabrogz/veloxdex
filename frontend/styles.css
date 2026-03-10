@@ -1381,14 +1381,20 @@ a { text-decoration: none; color: inherit; }
 }
 
 .coming-soon-icon {
-  font-size: 20px;
   width: 36px;
   height: 36px;
+  min-width: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--black-600);
   border-radius: var(--radius-md);
+  color: var(--cyan-500);
+}
+
+.coming-soon-icon svg {
+  width: 18px;
+  height: 18px;
 }
 
 .coming-soon-text {

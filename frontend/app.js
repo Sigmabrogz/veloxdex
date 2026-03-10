@@ -49,7 +49,11 @@ const ICONS = {
   chevron: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>`,
   bolt: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
   check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>`,
-  x: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`
+  x: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`,
+  chart: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M18 9l-5 5-4-4-6 6"/></svg>`,
+  clock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`,
+  link: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+  gift: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>`
 };
 
 // EIP-6963 Wallet Discovery
@@ -241,28 +245,28 @@ class VeloxDEX {
             </div>
             <div class="coming-soon-list">
               <div class="coming-soon-item">
-                <span class="coming-soon-icon">📊</span>
+                <div class="coming-soon-icon">${ICONS.chart}</div>
                 <div class="coming-soon-text">
                   <span class="coming-soon-name">Price Charts</span>
                   <span class="coming-soon-desc">Real-time token price visualization</span>
                 </div>
               </div>
               <div class="coming-soon-item">
-                <span class="coming-soon-icon">⏱️</span>
+                <div class="coming-soon-icon">${ICONS.clock}</div>
                 <div class="coming-soon-text">
                   <span class="coming-soon-name">Limit Orders</span>
                   <span class="coming-soon-desc">Set your target price and auto-execute</span>
                 </div>
               </div>
               <div class="coming-soon-item">
-                <span class="coming-soon-icon">🔗</span>
+                <div class="coming-soon-icon">${ICONS.link}</div>
                 <div class="coming-soon-text">
                   <span class="coming-soon-name">Multi-Chain</span>
                   <span class="coming-soon-desc">Expand to Arbitrum, Optimism & more</span>
                 </div>
               </div>
               <div class="coming-soon-item">
-                <span class="coming-soon-icon">🎁</span>
+                <div class="coming-soon-icon">${ICONS.gift}</div>
                 <div class="coming-soon-text">
                   <span class="coming-soon-name">Rewards Program</span>
                   <span class="coming-soon-desc">Earn rewards for trading & providing liquidity</span>
@@ -464,6 +468,11 @@ class VeloxDEX {
   }
 
   async updatePoolData() {
+    if (this.currentPage !== 'pool') return;
+    
+    const tvlEl = document.getElementById('poolTvl');
+    if (!tvlEl) return;
+    
     try {
       const pairAddress = '0x07597448E67374D5F4dcc63CA3703f44369bE112';
       const pairAbi = [
@@ -477,14 +486,16 @@ class VeloxDEX {
       const usdcReserve = parseFloat(ethers.formatUnits(r1, 6));
       const tvl = (ethReserve * 2000) + usdcReserve;
       
-      document.getElementById('poolTvl').textContent = '$' + tvl.toFixed(2);
+      tvlEl.textContent = '$' + tvl.toFixed(2);
       
       if (this.signer) {
         const addr = await this.signer.getAddress();
         const lpBal = await pair.balanceOf(addr);
-        if (lpBal > 0) {
-          document.getElementById('yourPosition').style.display = 'block';
-          document.getElementById('lpBalance').textContent = parseFloat(ethers.formatEther(lpBal)).toFixed(6);
+        const positionEl = document.getElementById('yourPosition');
+        if (lpBal > 0 && positionEl) {
+          positionEl.style.display = 'block';
+          const lpBalEl = document.getElementById('lpBalance');
+          if (lpBalEl) lpBalEl.textContent = parseFloat(ethers.formatEther(lpBal)).toFixed(6);
         }
       }
     } catch (e) {
