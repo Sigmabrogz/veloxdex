@@ -1,6 +1,6 @@
 {
   "name": "veloxdex",
-  "version": "1.0.0",
+  "version": "1.0.0-beta",
   "description": "Lightning fast DEX on Base - Ultra-low fee token swaps with modern UI",
   "author": "Velox Team",
   "license": "MIT",
@@ -29,8 +29,7 @@
     "test": "hardhat test",
     "deploy": "hardhat run scripts/deploy-mainnet.js --network base",
     "deploy:testnet": "hardhat run scripts/deploy.js --network baseSepolia",
-    "trade": "hardhat run scripts/trade.js --network base",
-    "trade:testnet": "hardhat run scripts/trade.js --network baseSepolia",
+    "liquidity": "hardhat run scripts/addLiquidity.js --network base",
     "frontend": "cd frontend && python3 -m http.server 8080"
   },
   "devDependencies": {

@@ -2,15 +2,17 @@
 
 **Lightning Fast Swaps on Base**
 
-Velox is a decentralized exchange (DEX) built on Base, offering ultra-low fee token swaps with a sleek, modern interface. Forked from Uniswap V2 with optimizations for the Base L2 ecosystem.
+> 🚧 **Beta Version** - This project is under active development. New features coming soon!
 
-![Velox DEX](https://img.shields.io/badge/Base-Mainnet-blue) ![License](https://img.shields.io/badge/license-MIT-green) ![Solidity](https://img.shields.io/badge/Solidity-0.8.20-purple)
+Velox is a decentralized exchange (DEX) built on Base, offering ultra-low fee token swaps with a sleek, modern interface. Built on proven Uniswap V2 architecture optimized for the Base L2 ecosystem.
+
+![Velox DEX](https://img.shields.io/badge/Base-Mainnet-blue) ![License](https://img.shields.io/badge/license-MIT-green) ![Solidity](https://img.shields.io/badge/Solidity-0.8.20-purple) ![Status](https://img.shields.io/badge/status-beta-orange)
 
 ---
 
 ## 🌟 Features
 
-- **Ultra-Low Fees**: 0.01% swap fee (vs 0.3% on Uniswap)
+- **Ultra-Low Fees**: Minimal swap fees for cost-effective trading
 - **Lightning Fast**: Built on Base L2 for sub-second finality
 - **Modern UI**: Neo-futuristic glassmorphism design
 - **Multi-Wallet Support**: MetaMask, Coinbase Wallet, Phantom, Rabby, Trust, OKX
@@ -29,7 +31,7 @@ Deployed on **Base Mainnet** (Chain ID: 8453)
 | Router | [`0x47a76Cf3cE4ba9Ce8619e1b7aBa5d6817B5Ffc29`](https://basescan.org/address/0x47a76Cf3cE4ba9Ce8619e1b7aBa5d6817B5Ffc29) |
 | ETH/USDC Pair | [`0x07597448E67374D5F4dcc63CA3703f44369bE112`](https://basescan.org/address/0x07597448E67374D5F4dcc63CA3703f44369bE112) |
 
-### Verified Tokens
+### Supported Tokens
 - **WETH**: `0x4200000000000000000000000000000000000006`
 - **USDC**: `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`
 
@@ -50,7 +52,7 @@ veloxdex/
 │   ├── styles.css
 │   └── app.js
 ├── scripts/             # Deployment scripts
-├── adapter/             # DefiLlama adapter
+├── adapter/             # DefiLlama integration
 └── deployments/         # Deployment addresses
 ```
 
@@ -75,7 +77,7 @@ npm install
 
 # Copy environment file
 cp .env.example .env
-# Edit .env with your private key and RPC URL
+# Edit .env with your configuration
 ```
 
 ### Compile Contracts
@@ -93,8 +95,7 @@ npx hardhat run scripts/deploy-mainnet.js --network base
 ### Run Frontend Locally
 
 ```bash
-cd frontend
-python3 -m http.server 8080
+npm run frontend
 # Open http://localhost:8080
 ```
 
@@ -110,31 +111,6 @@ Create a `.env` file in the root directory:
 PRIVATE_KEY=your_private_key_here
 BASE_RPC_URL=https://mainnet.base.org
 BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
-```
-
-### Hardhat Config
-
-The project uses Hardhat for smart contract development. See `hardhat.config.js` for network configurations.
-
----
-
-## 📊 DefiLlama Integration
-
-Velox includes a DefiLlama adapter for volume tracking:
-
-```typescript
-// adapter/index.ts
-// Tracks daily swap volume across all pairs
-```
-
-To test the adapter:
-```bash
-cd /tmp
-git clone https://github.com/DefiLlama/dimension-adapters
-cd dimension-adapters
-npm install
-# Copy adapter/index.ts to dexs/velox/index.ts
-npm test -- --adapter velox
 ```
 
 ---
@@ -163,16 +139,34 @@ npm test -- --adapter velox
 
 ---
 
+## 🗺️ Roadmap
+
+### Phase 1 (Current) - Beta Launch
+- [x] Core swap functionality
+- [x] Liquidity pools
+- [x] Multi-wallet support
+- [x] Modern UI/UX
+
+### Phase 2 - Coming Soon
+- [ ] Limit orders
+- [ ] Price charts
+- [ ] Token analytics
+- [ ] Mobile optimization
+
+### Phase 3 - Future
+- [ ] Multi-chain support
+- [ ] Governance token
+- [ ] Yield farming
+- [ ] Advanced trading features
+
+---
+
 ## 🔐 Security
 
-### Audits
-- Smart contracts are based on battle-tested Uniswap V2 code
-- No external dependencies beyond OpenZeppelin standards
-
-### Best Practices
+### Architecture
+- Smart contracts based on battle-tested Uniswap V2 code
 - Reentrancy protection via checks-effects-interactions
 - Integer overflow protection (Solidity 0.8+)
-- Access control on admin functions
 
 For security concerns, see [SECURITY.md](SECURITY.md).
 
@@ -198,16 +192,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- **Website**: [Coming Soon]
-- **Twitter**: [Coming Soon]
-- **Discord**: [Coming Soon]
-- **DefiLlama**: [Pending Listing]
+- **Live App**: [Vercel Deployment](https://veloxdex.vercel.app)
+- **Contracts**: [BaseScan](https://basescan.org/address/0x47a76Cf3cE4ba9Ce8619e1b7aBa5d6817B5Ffc29)
 
 ---
 
 ## ⚠️ Disclaimer
 
-This software is provided "as is", without warranty of any kind. Use at your own risk. Always verify contract addresses before interacting with any DeFi protocol.
+This software is provided "as is", without warranty of any kind. This is a beta product under active development. Use at your own risk. Always verify contract addresses before interacting with any DeFi protocol.
 
 ---
 

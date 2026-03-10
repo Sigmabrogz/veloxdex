@@ -114,7 +114,16 @@ class VeloxDEX {
   }
 
   render() {
-    document.getElementById('app').innerHTML = this.getHeader() + this.getPageContent() + this.getToast();
+    document.getElementById('app').innerHTML = this.getBetaBanner() + this.getHeader() + this.getPageContent() + this.getToast();
+  }
+
+  getBetaBanner() {
+    return `
+      <div class="beta-banner">
+        <span class="beta-tag">BETA</span>
+        <span>You're using an early version of Velox. New features coming soon!</span>
+        <a href="https://github.com/Sigmabrogz/veloxdex" target="_blank" class="beta-link">Learn more →</a>
+      </div>`;
   }
 
   getHeader() {
@@ -124,6 +133,7 @@ class VeloxDEX {
           <a href="#" class="logo" data-page="swap">
             <div class="logo-mark">${ICONS.bolt}</div>
             <span class="logo-text">Velox</span>
+            <span class="version-tag">BETA</span>
           </a>
           <nav class="nav">
             <a href="#" class="nav-item ${this.currentPage === 'swap' ? 'active' : ''}" data-page="swap">Swap</a>
@@ -221,6 +231,44 @@ class VeloxDEX {
               </div>
             </div>
             <button class="swap-btn" id="swapBtn" disabled>Connect Wallet</button>
+          </div>
+          
+          <!-- Coming Soon Features -->
+          <div class="coming-soon-card">
+            <div class="coming-soon-header">
+              <span class="coming-soon-title">Coming Soon</span>
+              <span class="coming-soon-tag">ROADMAP</span>
+            </div>
+            <div class="coming-soon-list">
+              <div class="coming-soon-item">
+                <span class="coming-soon-icon">📊</span>
+                <div class="coming-soon-text">
+                  <span class="coming-soon-name">Price Charts</span>
+                  <span class="coming-soon-desc">Real-time token price visualization</span>
+                </div>
+              </div>
+              <div class="coming-soon-item">
+                <span class="coming-soon-icon">⏱️</span>
+                <div class="coming-soon-text">
+                  <span class="coming-soon-name">Limit Orders</span>
+                  <span class="coming-soon-desc">Set your target price and auto-execute</span>
+                </div>
+              </div>
+              <div class="coming-soon-item">
+                <span class="coming-soon-icon">🔗</span>
+                <div class="coming-soon-text">
+                  <span class="coming-soon-name">Multi-Chain</span>
+                  <span class="coming-soon-desc">Expand to Arbitrum, Optimism & more</span>
+                </div>
+              </div>
+              <div class="coming-soon-item">
+                <span class="coming-soon-icon">🎁</span>
+                <div class="coming-soon-text">
+                  <span class="coming-soon-name">Rewards Program</span>
+                  <span class="coming-soon-desc">Earn rewards for trading & providing liquidity</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>`;
@@ -918,11 +966,21 @@ class VeloxDEX {
     const t = document.getElementById('toast');
     const m = document.getElementById('toastMsg');
     const i = t.querySelector('.toast-icon');
-    t.className = 'toast ' + type;
+    
+    const icons = {
+      success: ICONS.check,
+      error: ICONS.x,
+      warning: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 9v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+      info: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg>`
+    };
+    
+    t.className = 'toast toast-' + type;
     m.textContent = msg;
-    i.innerHTML = type === 'success' ? ICONS.check : ICONS.x;
+    i.innerHTML = icons[type] || icons.info;
     t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 4000);
+    
+    clearTimeout(this.toastTimeout);
+    this.toastTimeout = setTimeout(() => t.classList.remove('show'), 4000);
   }
 }
 
